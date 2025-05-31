@@ -1,6 +1,8 @@
 const { Router } = require('express')
-
+const cors = require('cors');
 const router = Router();
+
+router.use(cors());
 
 const authRoutes = require('./auth.routes')
 const orderRoutes = require('./order.routes')

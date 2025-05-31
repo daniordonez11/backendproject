@@ -3,7 +3,7 @@ const User = db.Usuarios;
 
 const getAllUsers = async () => {
     try {
-        const users = await User.findAll({attributes: ['id', 'firstName', 'lastName', 'email', 'status', 'dob', 'profile_picture']});
+        const users = await User.findAll({attributes: ['id', 'nombre', 'apellido', 'email', 'contrasena', 'estado', 'nacimiento', 'accesoTotal']});
         return users;
     } catch (error) {
         console.error('Error fetching users:', error);
@@ -13,7 +13,7 @@ const getAllUsers = async () => {
 
 const getUserById = async (id) => {
     try {
-        const user = await User.findByPk({where: {id}, attributes: ['id', 'firstName', 'lastName', 'email', 'status', 'dob', 'profile_picture']});
+        const user = await User.findByPk({where: {id}, attributes: ['id', 'nombre', 'apellido', 'email', 'contrasena', 'estado', 'nacimiento', 'accesoTotal']});
         return user;
     } catch (error) {
         console.error('Error fetching user:', error);
