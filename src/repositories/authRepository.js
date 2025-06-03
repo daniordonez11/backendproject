@@ -13,7 +13,9 @@ const getAllUsers = async () => {
 
 const getUserById = async (id) => {
     try {
-        const user = await User.findByPk({where: {id}, attributes: ['id', 'nombre', 'apellido', 'email', 'contrasena', 'estado', 'nacimiento', 'accesoTotal']});
+        const user = await User.findByPk(id, {
+            attributes: ['id', 'nombre', 'apellido', 'email', 'contrasena', 'estado', 'nacimiento', 'accesoTotal']
+        });
         return user;
     } catch (error) {
         console.error('Error fetching user:', error);

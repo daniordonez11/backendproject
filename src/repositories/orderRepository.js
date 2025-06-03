@@ -27,7 +27,7 @@ const getAllOrders = async () => {
 
 const getOrderById = async (id) => {
     try {
-        const Order = await Order.findByPk({where: {id}, attributes: [
+        const Order = await Order.findByPk(id, {attributes: [
             'id',
         'usuarioId',
         'nombreCliente',
@@ -59,12 +59,12 @@ const createOrder = async (OrderData) => {
 
 const updateOrder = async (id, OrderData) => {
     try {
-        const Order = await Order.findByPk(id);
-        if (!Order) {
+        const existingOrder = await Order.findByPk(id);
+        if (!existingOrder) {
             throw new Error('Order not found');
         }
-        await Order.update(OrderData);
-        return Order;
+        await existingOrder.update(OrderData);
+        return existingOrder;
     } catch (error) {
         console.error('Error updating Order:', error);
         throw error;

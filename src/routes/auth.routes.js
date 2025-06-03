@@ -10,11 +10,11 @@ const router = express.Router();
 router.post('/login', loginValidationRules, validate, authController.login);
 router.put('/cambiarclave/:id', authController.cambiarclave);
 
-router.get('/', authController.getAllUsers);
-router.get('/:id', authController.getUserById);
-router.post('/', authController.createUser);
-router.put('/:id', authController.updateUser);
-router.delete('/:id', authController.deleteUser);
+router.get('/usuario', authController.getAllUsers);
+router.get('/usuario/:id', authController.getUserById);
+router.post('/usuario', authController.createUser);
+router.put('/usuario/:id', authController.updateUser);
+router.delete('/usuario/:id', authController.deleteUser);
 
 
 module.exports = router;

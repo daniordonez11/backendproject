@@ -8,10 +8,10 @@ const router = express.Router();
 // router.put('/cambiarclave/:id', orderController.cambiarclave);
 
 router.get('/order', orderController.getAllOrders);
-router.get('/order:id', orderController.getOrderById);
+router.get('/order/:id', orderController.getOrderById);
 router.post('/order', orderController.createOrder);
-router.put('/order:id', orderController.updateOrder);
-router.delete('/order:id', orderController.deleteOrder);
+router.put('/order/:id', orderController.updateOrder);
+router.delete('/order/:id', orderController.deleteOrder);
 
 
 module.exports = router;
