@@ -13,4 +13,6 @@ DB_PASSWORD=
 CREAR TABLAS EN OTRA PC
 npx sequelize-cli db:migrate
 
+CLOUDINARY PONER EN EL .env
+
 
