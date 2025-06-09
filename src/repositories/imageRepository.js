@@ -7,6 +7,10 @@ const imageRepository = {
   async findByOrdenId(ordenId) {
     return await Images.findAll({ where: { ordenId } });
   },
+
+  async deleteById(id) {
+  return await Images.destroy({ where: { id } });
+}
 };
 
 module.exports = imageRepository;

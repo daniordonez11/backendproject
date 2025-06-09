@@ -27,7 +27,7 @@ const getAllOrders = async () => {
 
 const getOrderById = async (id) => {
     try {
-        const Order = await Order.findByPk(id, {attributes: [
+        const order = await Order.findByPk(id, {attributes: [
             'id',
         'usuarioId',
         'nombreCliente',
@@ -40,7 +40,7 @@ const getOrderById = async (id) => {
         'estado',
         'createdAt',
         'updatedAt']});
-        return Order;
+        return order;
     } catch (error) {
         console.error('Error fetching Order:', error);
         throw error;
@@ -73,11 +73,11 @@ const updateOrder = async (id, OrderData) => {
 
 const deleteOrder = async (id) => {
     try {
-        const Order = await Order.findByPk(id);
-        if (!Order) {
+        const order = await Order.findByPk(id);
+        if (!order) {
             throw new Error('Order not found');
         }
-        await Order.destroy();
+        await order.destroy();
         return Order;
     } catch (error) {
         console.error('Error deleting Order:', error);

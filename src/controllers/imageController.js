@@ -1,3 +1,4 @@
+const { Images } = require("../models");
 const imageRepository = require("../repositories/imageRepository");
 const imageAdapter = require("../adapters/imageAdapter");
 const cloudinary = require('../config/cloudinary');
@@ -50,6 +51,31 @@ const imageController = {
     } catch (error) {
       console.error("Error al obtener imágenes:", error);
       res.status(500).json({ message: "Error interno" });
+    }
+  },
+
+  async deleteImage(req, res) {
+    try {
+      const { imageId } = req.params;
+
+      const image = await Images.findByPk(imageId);
+      if (!image) {
+        return res.status(404).json({ message: "Imagen no encontrada" });
+      }
+
+      const urlParts = image.urlImagen.split('/');
+      const fileName = urlParts[urlParts.length - 1]; // ej: abc.jpg
+      const folder = urlParts[urlParts.length - 2]; // ej: ordenes_images
+      const publicId = `${folder}/${fileName.split('.')[0]}`;
+
+      await cloudinary.uploader.destroy(publicId);
+
+      await imageRepository.deleteById(imageId);
+
+      return res.json({ message: "Imagen eliminada correctamente" });
+    } catch (error) {
+      console.error("Error al eliminar imagen:", error);
+      return res.status(500).json({ message: "Error interno al eliminar imagen" });
     }
   },
 };

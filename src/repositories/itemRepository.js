@@ -4,14 +4,14 @@ console.log('MODELO', Item);
 
 const getAllItems = async () => {
     try {
-        const Items = await Item.findAll({attributes: [
+        const item  = await Item.findAll({attributes: [
         'id',
         'descripcion',
         'cantidad',
         'observacion',
         'createdAt',
         'updatedAt']});
-        return Items;
+        return item;
     } catch (error) {
         console.error('Error fetching Items:', error);
         throw error;
@@ -20,14 +20,17 @@ const getAllItems = async () => {
 
 const getItemById = async (id) => {
     try {
-        const Item = await Item.findByPk({where: {id}, attributes: [
-        'id',
-        'descripcion',
-        'cantidad',
-        'observacion',
-        'createdAt',
-        'updatedAt']});
-        return Item;
+        const item = await Item.findByPk(id, {
+            attributes: [
+                'id',
+                'descripcion',
+                'cantidad',
+                'observacion',
+                'createdAt',
+                'updatedAt'
+            ]
+        });
+        return item;
     } catch (error) {
         console.error('Error fetching Item:', error);
         throw error;
@@ -46,12 +49,12 @@ const createItem = async (ItemData) => {
 
 const updateItem = async (id, ItemData) => {
     try {
-        const Item = await Item.findByPk(id);
-        if (!Item) {
+        const item = await Item.findByPk(id);
+        if (!item) {
             throw new Error('Item not found');
         }
-        await Item.update(ItemData);
-        return Item;
+        await item.update(ItemData);
+        return item;
     } catch (error) {
         console.error('Error updating Item:', error);
         throw error;
@@ -60,12 +63,12 @@ const updateItem = async (id, ItemData) => {
 
 const deleteItem = async (id) => {
     try {
-        const Item = await Item.findByPk(id);
-        if (!Item) {
+        const item = await Item.findByPk(id);
+        if (!item) {
             throw new Error('Item not found');
         }
-        await Item.destroy();
-        return Item;
+        await item.destroy();
+        return item;
     } catch (error) {
         console.error('Error deleting Item:', error);
         throw error;
@@ -74,15 +77,15 @@ const deleteItem = async (id) => {
 
 const cambiarEstado = async (id, estado) => {
     try {
-    const Item = await Item.findByPk(id);
-    if (!Item) {
+    const item = await Item.findByPk(id);
+    if (!item) {
     throw new Error('Orden no encontrada');
     }
 
-    Item.estado = estado;
-    await Item.save();
+    item.estado = estado;
+    await item.save();
 
-    return Item;
+    return item;
     } catch (error) {
     console.error('Error al cambiar estado de la orden:', error);
     throw error;
