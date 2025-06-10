@@ -29,6 +29,8 @@ const indexRoutes=require('./src/routes/index')
 app.use(indexRoutes) 
 
 // Escuchando en el puerto definido
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
+    // para pruebas: ${PORT}
+    // para probar con movil: 
     console.log(`Server is running on port: ${PORT}`);
 });

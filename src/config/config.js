@@ -1,3 +1,4 @@
+require('dotenv').config();
 module.exports = {
   "development": {
     "username": process.env.DB_USER,
@@ -22,3 +23,4 @@ module.exports = {
     "dialect": "mysql"
   }
 }
+console.log('DB user:', process.env.DB_USER);
