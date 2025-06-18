@@ -19,4 +19,20 @@ npx sequelize-cli db:migrate
 
 CLOUDINARY PONER EN EL .env
 
+NODE_ENV = "development"
+PORT = 3000
+
+CLOUDINARY_CLOUD_NAME=drnggz5mm
+CLOUDINARY_API_KEY=132827134545137
+CLOUDINARY_API_SECRET=gOd-3jFuUy5K4yrbeETp0DQ4DY8
+
+DB_USER=root
+DATABASE=backenddata
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_PASSWORD=
+
+EMAIL_FROM=arevalodani9@gmail.com
+EMAIL_PASS=tu_contraseña_de_aplicacion
+
 

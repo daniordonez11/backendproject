@@ -92,25 +92,40 @@ const cambiarFoto = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-    try{
-        const email=req.body.email
-        const user = await authAdapter.login(email);
-        if (!user) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-        const isMatch = await bcrypt.compare(req.body.password, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-        //generar token
-        //crear cookie
-        res.status(200).json(user);
+  console.log("Solicitud de login recibida:", req.body);
+  try {
+    const email = req.body.email;
+    console.log('Buscando usuario por email:', email);
+    const user = await authAdapter.login(email);
+    console.log('Usuario encontrado:', user ? user.email : 'No encontrado');
+
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciales inválidas' });
     }
-    catch (error) {
-            console.log('Error logging in:', error);
-            res.status(500).json({ message: 'Error logging in' });
-        }
-}
+
+    console.log('Comparando contraseñas...');
+    const isMatch = await bcrypt.compare(req.body.password, user.contrasena);
+    console.log('Resultado comparación:', isMatch);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Credenciales inválidas' });
+    }
+
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET || 'tu_clave_secreta',
+      { expiresIn: '1h' }
+    );
+    console.log('Token generado');
+
+    const { contrasena, ...userWithoutPassword } = user.dataValues;
+
+    res.status(200).json({ user: userWithoutPassword, token });
+  } catch (error) {
+    console.log('Error logging in:', error);
+    res.status(500).json({ message: 'Error al iniciar sesión' });
+  }
+};
 
 module.exports = {
     getAllUsers,

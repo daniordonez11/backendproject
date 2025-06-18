@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
       },
+      clienteId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "usuarios",
+          key: "id",
+        },
+      },
       nombreCliente: DataTypes.STRING,
       telefonoCliente: DataTypes.INTEGER,
       emailCliente: DataTypes.STRING,

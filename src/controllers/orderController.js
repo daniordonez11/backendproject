@@ -2,6 +2,7 @@ const orderAdapter = require('../adapters/orderAdapter');
 const bcrypt = require('bcrypt');
 const { Ordenes, Usuarios } = require('../models');
 
+
 const getAllOrders = async (req, res, next) => {
     try{
         const Orders = await orderAdapter.getAllOrders();
@@ -28,7 +29,7 @@ const getOrderById = async (req, res, next) => {
 const createOrder = async (req, res) => {
   try {
     const orderData = req.body;
-    const newOrder = await Ordenes.create(orderData);
+    const newOrder = await orderAdapter.createOrder(orderData);
     res.status(201).json(newOrder);
   } catch (error) {
     console.error('Error creating order:', error);
