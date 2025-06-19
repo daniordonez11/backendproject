@@ -9,12 +9,12 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const enviarCredencialesCliente = async (toEmail, nombreCliente, contrasena) => {
+const enviarCredencialesCliente = async (toEmail, nombreCliente, contrasena, idOrden) => {
   const mailOptions = {
     from: `"Soporte Técnico" <${process.env.EMAIL_FROM}>`,
     to: toEmail,
-    subject: 'Tus credenciales de acceso',
-    text: `Hola ${nombreCliente},\n\nTu cuenta ha sido creada exitosamente.\nTu contraseña de acceso es: ${contrasena}\n\nPor favor cámbiala luego de iniciar sesión.`,
+    subject: 'Información de tu Orden y Acceso',
+    text: `Hola ${nombreCliente},\n\nTu equipo ha sido registrado exitosamente.\n\nID de Orden: ${idOrden}\nContraseña de acceso: ${contrasena}\n\nPuedes usar esta información y tu Email para revisar el estado de tu equipo.\n\nGracias por confiar en nuestro servicio.`,
   };
 
   try {
@@ -25,5 +25,6 @@ const enviarCredencialesCliente = async (toEmail, nombreCliente, contrasena) => 
     throw error;
   }
 };
+
 
 module.exports = { enviarCredencialesCliente };

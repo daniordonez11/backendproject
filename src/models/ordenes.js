@@ -35,6 +35,8 @@ module.exports = (sequelize, DataTypes) => {
           model: "usuarios",
           key: "id",
         },
+        onDelete: "CASCADE", // <- Aquí
+        onUpdate: "CASCADE",
       },
       nombreCliente: DataTypes.STRING,
       telefonoCliente: DataTypes.INTEGER,

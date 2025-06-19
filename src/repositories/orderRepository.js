@@ -81,8 +81,6 @@ const createOrder = async (OrderData) => {
             estado: true
         });
 
-        await enviarCredencialesCliente(emailCliente, nombreCliente, contrasenaHash);
-
         const nuevaOrden = await Order.create({
             usuarioId: usuarioId,
             nombreCliente,
@@ -93,8 +91,10 @@ const createOrder = async (OrderData) => {
             estadoInicial,
             accesoriosEntregados,
             estado,
-            clienteId: nuevoCliente.id // asegurate que la tabla ordenes tenga este campo
+            clienteId: nuevoCliente.id 
         });
+
+        await enviarCredencialesCliente(emailCliente, nombreCliente, contrasenaHash, nuevaOrden.id);
 
         return nuevaOrden;
     } catch (error) {
