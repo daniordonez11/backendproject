@@ -33,6 +33,6 @@ DB_PORT=3306
 DB_PASSWORD=
 
 EMAIL_FROM=arevalodani9@gmail.com
-EMAIL_PASS=tu_contraseña_de_aplicacion
+EMAIL_PASS=zpks teqy bfxi jcln
 
 

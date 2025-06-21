@@ -4,6 +4,16 @@ const Usuario = db.Usuarios;
 const bcrypt = require('bcrypt');
 const { enviarCredencialesCliente } = require('../utils/emailService');
 
+const generarContrasenaAleatoria = (longitud = 10) => {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+    let contrasena = '';
+    for (let i = 0; i < longitud; i++) {
+        const indice = Math.floor(Math.random() * caracteres.length);
+        contrasena += caracteres[indice];
+    }
+    return contrasena;
+};
+
 const getAllOrders = async () => {
     try {
         const Orders = await Order.findAll({
@@ -70,14 +80,13 @@ const createOrder = async (OrderData) => {
             estado
         } = OrderData;
 
-        const contrasenaPredeterminada = "123456";
-        const contrasenaHash = await bcrypt.hash(contrasenaPredeterminada, 10);
+        const contrasenaGenerada = generarContrasenaAleatoria(10);;
 
         const nuevoCliente = await Usuario.create({
             nombre: nombreCliente,
             email: emailCliente,
             accesoTotal: false,
-            contrasena: contrasenaHash,
+            contrasena: contrasenaGenerada,
             estado: true
         });
 
@@ -94,7 +103,7 @@ const createOrder = async (OrderData) => {
             clienteId: nuevoCliente.id 
         });
 
-        await enviarCredencialesCliente(emailCliente, nombreCliente, contrasenaHash, nuevaOrden.id);
+        await enviarCredencialesCliente(emailCliente, nombreCliente, contrasenaGenerada, nuevaOrden.id);
 
         return nuevaOrden;
     } catch (error) {
